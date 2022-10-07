@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8F99DAD028E5859000E8D6CF /* PromoCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F99DACF28E5859000E8D6CF /* PromoCollectionViewDelegate.swift */; };
+		8F0E45D428F00B16009AF4E9 /* SalesHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0E45D328F00B16009AF4E9 /* SalesHeaderView.swift */; };
+		8F0E45D728F01419009AF4E9 /* CatalogHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0E45D628F01419009AF4E9 /* CatalogHeaderView.swift */; };
 		8F99DAD628E5953B00E8D6CF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F99DAD528E5953B00E8D6CF /* Constants.swift */; };
 		8F99DADB28E5B38F00E8D6CF /* AddressesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F99DADA28E5B38F00E8D6CF /* AddressesViewController.swift */; };
 		8F99DAE328E5F20F00E8D6CF /* NetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F99DAE228E5F20F00E8D6CF /* NetworkingService.swift */; };
@@ -38,15 +39,13 @@
 		8FFFD81D28E41E6A009C3994 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FFFD81B28E41E6A009C3994 /* LaunchScreen.storyboard */; };
 		8FFFD83428E42A13009C3994 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFFD83328E42A13009C3994 /* AddressView.swift */; };
 		8FFFD84D28E47381009C3994 /* PromoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFFD84C28E47381009C3994 /* PromoCollectionViewCell.swift */; };
-		8FFFD85028E49DB5009C3994 /* PromoBannersCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFFD84F28E49DB5009C3994 /* PromoBannersCollectionViewDelegate.swift */; };
 		8FFFD85328E4A284009C3994 /* SaleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFFD85228E4A284009C3994 /* SaleCollectionViewCell.swift */; };
-		8FFFD85628E4AD88009C3994 /* SalesCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFFD85528E4AD88009C3994 /* SalesCollectionViewDelegate.swift */; };
 		8FFFD85928E4C4BC009C3994 /* CatalogCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFFD85828E4C4BC009C3994 /* CatalogCollectionViewCell.swift */; };
-		8FFFD85C28E4C9AC009C3994 /* CatalogCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFFD85B28E4C9AC009C3994 /* CatalogCollectionViewDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8F99DACF28E5859000E8D6CF /* PromoCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoCollectionViewDelegate.swift; sourceTree = "<group>"; };
+		8F0E45D328F00B16009AF4E9 /* SalesHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesHeaderView.swift; sourceTree = "<group>"; };
+		8F0E45D628F01419009AF4E9 /* CatalogHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogHeaderView.swift; sourceTree = "<group>"; };
 		8F99DAD528E5953B00E8D6CF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8F99DADA28E5B38F00E8D6CF /* AddressesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressesViewController.swift; sourceTree = "<group>"; };
 		8F99DAE228E5F20F00E8D6CF /* NetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingService.swift; sourceTree = "<group>"; };
@@ -79,11 +78,8 @@
 		8FFFD81E28E41E6A009C3994 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8FFFD83328E42A13009C3994 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
 		8FFFD84C28E47381009C3994 /* PromoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoCollectionViewCell.swift; sourceTree = "<group>"; };
-		8FFFD84F28E49DB5009C3994 /* PromoBannersCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoBannersCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		8FFFD85228E4A284009C3994 /* SaleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaleCollectionViewCell.swift; sourceTree = "<group>"; };
-		8FFFD85528E4AD88009C3994 /* SalesCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		8FFFD85828E4C4BC009C3994 /* CatalogCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCollectionViewCell.swift; sourceTree = "<group>"; };
-		8FFFD85B28E4C9AC009C3994 /* CatalogCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCollectionViewDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,17 +102,6 @@
 				8F99DB1B28E63EED00E8D6CF /* BannerCollectionViewCell.swift */,
 			);
 			path = CollectionViewCells;
-			sourceTree = "<group>";
-		};
-		8F99DAD428E593BD00E8D6CF /* CollectionViewDelegates */ = {
-			isa = PBXGroup;
-			children = (
-				8F99DACF28E5859000E8D6CF /* PromoCollectionViewDelegate.swift */,
-				8FFFD85B28E4C9AC009C3994 /* CatalogCollectionViewDelegate.swift */,
-				8FFFD85528E4AD88009C3994 /* SalesCollectionViewDelegate.swift */,
-				8FFFD84F28E49DB5009C3994 /* PromoBannersCollectionViewDelegate.swift */,
-			);
-			path = CollectionViewDelegates;
 			sourceTree = "<group>";
 		};
 		8F99DAE128E5F1DE00E8D6CF /* NetworkingService */ = {
@@ -270,9 +255,10 @@
 				8F99DB0D28E62C9C00E8D6CF /* MainView */,
 				8FFFD83328E42A13009C3994 /* AddressView.swift */,
 				8F99DAF828E6080B00E8D6CF /* AddressesView */,
-				8F99DAD428E593BD00E8D6CF /* CollectionViewDelegates */,
 				8F99DAD228E585A900E8D6CF /* CollectionViewCells */,
 				8F99DAD528E5953B00E8D6CF /* Constants.swift */,
+				8F0E45D328F00B16009AF4E9 /* SalesHeaderView.swift */,
+				8F0E45D628F01419009AF4E9 /* CatalogHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -353,14 +339,14 @@
 				8F99DB1928E637E000E8D6CF /* MockData.swift in Sources */,
 				8F99DAD628E5953B00E8D6CF /* Constants.swift in Sources */,
 				8F99DAED28E5F7B700E8D6CF /* AddressesPresenter.swift in Sources */,
-				8F99DAD028E5859000E8D6CF /* PromoCollectionViewDelegate.swift in Sources */,
+				8F0E45D728F01419009AF4E9 /* CatalogHeaderView.swift in Sources */,
+				8F0E45D428F00B16009AF4E9 /* SalesHeaderView.swift in Sources */,
 				8F99DB2528E6D91F00E8D6CF /* MenuTransition.swift in Sources */,
 				8F99DB0128E628CE00E8D6CF /* ServiceLocator.swift in Sources */,
 				8F99DAF328E6024400E8D6CF /* NetworkingError.swift in Sources */,
 				8FFFD85928E4C4BC009C3994 /* CatalogCollectionViewCell.swift in Sources */,
 				8F99DB0728E62C0600E8D6CF /* MainPresenterProtocol.swift in Sources */,
 				8FFFD84D28E47381009C3994 /* PromoCollectionViewCell.swift in Sources */,
-				8FFFD85628E4AD88009C3994 /* SalesCollectionViewDelegate.swift in Sources */,
 				8F99DB1628E6342600E8D6CF /* ModelProtocol.swift in Sources */,
 				8F99DAFA28E6082700E8D6CF /* AddressesViewProtocol.swift in Sources */,
 				8F99DB1228E62CD900E8D6CF /* MainViewController.swift in Sources */,
@@ -374,12 +360,10 @@
 				8FFFD83428E42A13009C3994 /* AddressView.swift in Sources */,
 				8F99DAFE28E6284600E8D6CF /* Model.swift in Sources */,
 				8F99DB0B28E62C1400E8D6CF /* MainPresenter.swift in Sources */,
-				8FFFD85028E49DB5009C3994 /* PromoBannersCollectionViewDelegate.swift in Sources */,
 				8F99DAE328E5F20F00E8D6CF /* NetworkingService.swift in Sources */,
 				8F99DAF028E5FA6600E8D6CF /* Address.swift in Sources */,
 				8F99DB3028E71C8300E8D6CF /* DismissAnimation.swift in Sources */,
 				8F99DB3A28E71E0F00E8D6CF /* TransitionDriver.swift in Sources */,
-				8FFFD85C28E4C9AC009C3994 /* CatalogCollectionViewDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

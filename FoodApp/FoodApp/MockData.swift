@@ -14,6 +14,10 @@ struct Promo {
 	let name: String
 }
 
+struct Banner {
+	let image: UIImage
+}
+
 struct Sale {
 	
 	let image: UIImage
@@ -43,15 +47,14 @@ final class MockData {
 	 Promo(image: UIImage(named: "promo2")!, name: "Летний обед"),
  ]
 
-	static let banners: [UIImage] = [
-	 UIImage(named: "banner")!,
-	 UIImage(named: "banner")!,
-	 UIImage(named: "banner")!,
-	 UIImage(named: "banner")!,
-	 UIImage(named: "banner")!,
-	 UIImage(named: "banner")!,
-	 UIImage(named: "banner")!,
-	 UIImage(named: "banner")!,
+	static let banners: [Banner] = [
+	Banner(image: UIImage(named: "banner")!),
+	Banner(image: UIImage(named: "banner")!),
+	Banner(image: UIImage(named: "banner")!),
+	Banner(image: UIImage(named: "banner")!),
+	Banner(image: UIImage(named: "banner")!),
+	Banner(image: UIImage(named: "banner")!),
+	Banner(image: UIImage(named: "banner")!),
  ]
 
  static let sales: [Sale] = [

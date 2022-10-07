@@ -138,12 +138,18 @@ extension AddressesViewController: UITableViewDelegate, UITableViewDataSource {
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+		var cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+		cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell")
 		guard let address = presenter?.getAddress(for: indexPath.row) else {
 			return cell
 		}
-		cell.textLabel?.text = address
+		cell.textLabel?.text = address.value
 		cell.imageView?.image = UIImage(named: "locationPin")
+		if address.data.city != nil && address.data.region != nil && address.data.country != nil {
+			let subtitle = "\(address.data.city!), \(address.data.region!), \(address.data.country!)"
+			cell.detailTextLabel?.text = subtitle
+			cell.detailTextLabel?.textColor = Constants.smallTextColor
+		}
 		return cell
 	}
 	

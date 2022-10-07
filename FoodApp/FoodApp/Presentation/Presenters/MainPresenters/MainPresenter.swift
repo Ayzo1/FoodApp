@@ -20,4 +20,39 @@ final class MainPresenter: MainPresenterProtocol {
 	func getCurrentAddress() -> String {
 		model?.currentAddress.value ?? ""
 	}
+	
+	func getBlocksCount() -> Int{
+		return 4
+	}
+	
+	func getItemsCount(blockIndex: Int) -> Int {
+		switch blockIndex {
+		case 0:
+			return MockData.promo.count
+		case 1:
+			return MockData.banners.count
+		case 2:
+			return MockData.sales.count
+		case 3:
+			return MockData.catalog.count
+		default:
+			return 0
+		}
+	}
+	
+	func getPromoItem(index: Int) -> Promo {
+		return MockData.promo[index]
+	}
+	
+	func getBannerItem(index: Int) -> Banner {
+		return MockData.banners[index]
+	}
+	
+	func getSaleItem(index: Int) -> Sale {
+		return MockData.sales[index]
+	}
+	
+	func getCatalogItem(index: Int) -> Catalog {
+		return MockData.catalog[index]
+	}
 }

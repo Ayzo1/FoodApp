@@ -5,7 +5,7 @@ class PresentationController: UIPresentationController {
 	
 	override var frameOfPresentedViewInContainerView: CGRect {
 		let bounds = containerView!.bounds
-		return CGRect(x: 0, y: 0, width: bounds.width * 4 / 5, height: bounds.height)
+		return CGRect(x: 0, y: 0, width: bounds.width * 7 / 8, height: bounds.height)
 	}
 	
 	override func presentationTransitionWillBegin() {

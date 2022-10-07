@@ -1,11 +1,12 @@
 import UIKit
 
-class MainViewController: UIViewController, MainViewProtocol, UIGestureRecognizerDelegate {
-
-	// MARK: - Private properties
+class MainViewController: UIViewController, MainViewProtocol {
 	
-	private var presenter: MainPresenterProtocol?
+	// MARK: - Private properties
 		
+	private var presenter: MainPresenterProtocol?
+	private let transition = MenuTransition()
+	
 	private var favoritesButton: UIBarButtonItem = {
 		let button = UIBarButtonItem(image: UIImage(systemName: "heart.fill"), style: .plain, target: self, action: nil)
 		button.tintColor = .gray
@@ -17,132 +18,39 @@ class MainViewController: UIViewController, MainViewProtocol, UIGestureRecognize
 		return view
 	}()
 	
-	private lazy var contentView: UIView = {
-		let view = UIView()
-		view.translatesAutoresizingMaskIntoConstraints = false
-		return view
-	}()
-	
-	private lazy var promoCollectionView: UICollectionView = {
-		let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-		layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-		layout.itemSize = CGSize(width: 100, height: 80)
-		layout.scrollDirection = .horizontal
-		let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-		collectionView.translatesAutoresizingMaskIntoConstraints = false
-		collectionView.register(PromoCollectionViewCell.self, forCellWithReuseIdentifier: PromoCollectionViewCell.identifirer)
-		collectionView.backgroundColor = Constants.backgroundColor
-		collectionView.showsHorizontalScrollIndicator = false
-		return collectionView
-	}()
-	
-	private lazy var promoBannersCollectionView: UICollectionView = {
-		let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-		layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-		layout.itemSize = CGSize(width: 290, height: 115)
-		layout.scrollDirection = .horizontal
-		let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-		collectionView.translatesAutoresizingMaskIntoConstraints = false
-		collectionView.register(BannerCollectionViewCell.self, forCellWithReuseIdentifier: BannerCollectionViewCell.identifirer)
-		collectionView.backgroundColor = Constants.backgroundColor
-		collectionView.showsHorizontalScrollIndicator = false
-		return collectionView
-	}()
-	
-	private lazy var salesCollectionView: UICollectionView = {
-		let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-		layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-		layout.itemSize = CGSize(width: 120, height: 210)
-		layout.scrollDirection = .horizontal
-		let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-		collectionView.translatesAutoresizingMaskIntoConstraints = false
-		collectionView.register(SaleCollectionViewCell.self, forCellWithReuseIdentifier: SaleCollectionViewCell.identifirer)
-		collectionView.backgroundColor = Constants.backgroundColor
-		collectionView.showsHorizontalScrollIndicator = false
-		return collectionView
-	}()
-	
 	private lazy var hamburgerMenuButton: UIBarButtonItem = {
 		let button = UIBarButtonItem(image: UIImage(named: "hamburger"), style: .plain, target: self, action: #selector(hamburgerMenuButtonAction))
 		button.tintColor = Constants.smallTextColor
 		return button
 	}()
 	
-	private lazy var scrollView: UIScrollView = {
-		let scrollView = UIScrollView()
-		scrollView.translatesAutoresizingMaskIntoConstraints = false
-		scrollView.isUserInteractionEnabled = true
-		scrollView.isScrollEnabled = true
-		return scrollView
-	}()
-	
-	private lazy var salesLabel: UILabel = {
-		let label = UILabel()
-		label.translatesAutoresizingMaskIntoConstraints = false
-		label.font = Constants.headersFont
-		label.text = "Акции"
-		return label
-	}()
-	
-	private lazy var catalogLabel: UILabel = {
-		let label = UILabel()
-		label.translatesAutoresizingMaskIntoConstraints = false
-		label.font = Constants.headersFont
-		label.text = "Каталог"
-		return label
-	}()
-	
-	private lazy var salesButton: UIButton = {
-		let button = UIButton()
-		button.setTitle("Смотреть все", for: .normal)
-		button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
-		button.translatesAutoresizingMaskIntoConstraints = false
-		button.semanticContentAttribute = .forceRightToLeft
-		button.backgroundColor = Constants.secondBackgroundColor
-		button.tintColor = .black
-		button.setTitleColor(Constants.textColor, for: .normal)
-		button.titleLabel?.font = Constants.font
-		button.layer.cornerRadius = 5
-		return button
-	}()
-	
-	private lazy var catalogCollectionView: UICollectionView = {
-		let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-		layout.sectionInset = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
-		let height = (view.frame.size.width - 55 ) / 3
-		layout.itemSize = CGSize(width: height, height: 140)
-		let collectionView = UICollectionView(frame: CGRect(x: 5, y: 5, width: view.frame.width - 10, height: view.frame.height - 10), collectionViewLayout: layout)
+	private lazy var collectionView: UICollectionView = {
+		let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: createLayout())
 		collectionView.translatesAutoresizingMaskIntoConstraints = false
+		collectionView.register(PromoCollectionViewCell.self, forCellWithReuseIdentifier: PromoCollectionViewCell.identifirer)
+		collectionView.register(BannerCollectionViewCell.self.self, forCellWithReuseIdentifier: BannerCollectionViewCell.identifirer)
+		collectionView.register(SaleCollectionViewCell.self, forCellWithReuseIdentifier: SaleCollectionViewCell.identifirer)
 		collectionView.register(CatalogCollectionViewCell.self, forCellWithReuseIdentifier: CatalogCollectionViewCell.identifirer)
+		collectionView.register(SalesHeaderView.self, forSupplementaryViewOfKind: "Sales", withReuseIdentifier: SalesHeaderView.identifirer)
+		collectionView.register(CatalogHeaderView.self, forSupplementaryViewOfKind: "Catalog", withReuseIdentifier: CatalogHeaderView.identifirer)
 		collectionView.backgroundColor = Constants.backgroundColor
 		return collectionView
 	}()
-		
-	private var promoCollectionViewDelegate: PromoCollectionViewDelegate?
-	private var promoBannersDelegate: PromoBannersCollectionViewDelegate?
-	private var salesCollectionViewDelegate: SalesCollectionViewDelegate?
-	private var catalogCollectionViewDelegate: CatalogCollectionViewDelegate?
-
+	
 	// MARK: - Lifecycle
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		presenter = MainPresenter(view: self)
-		self.promoCollectionViewDelegate = PromoCollectionViewDelegate()
-		self.promoBannersDelegate = PromoBannersCollectionViewDelegate()
-		self.salesCollectionViewDelegate = SalesCollectionViewDelegate()
-		self.catalogCollectionViewDelegate = CatalogCollectionViewDelegate()
-		
-		promoCollectionView.delegate = promoCollectionViewDelegate
-		promoCollectionView.dataSource = promoCollectionViewDelegate
-		promoBannersCollectionView.delegate = promoBannersDelegate
-		promoBannersCollectionView.dataSource = promoBannersDelegate
-		salesCollectionView.delegate = salesCollectionViewDelegate
-		salesCollectionView.dataSource = salesCollectionViewDelegate
-		catalogCollectionView.delegate = catalogCollectionViewDelegate
-		catalogCollectionView.dataSource = catalogCollectionViewDelegate
-		
-		setupSubviews()
+		collectionView.delegate = self
+		collectionView.dataSource = self
+		view.backgroundColor = Constants.backgroundColor
+		setupNavigationBar()
+		view.addSubview(collectionView)
+		collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+		collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+		collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+		collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
 	}
 	
 	// MARK: - MainViewProtocol
@@ -153,99 +61,8 @@ class MainViewController: UIViewController, MainViewProtocol, UIGestureRecognize
 	
 	// MARK: - Private methods
 	
-	private func setupSubviews() {
-		view.backgroundColor = .white
-		setupNavigationBar()
-		view.addSubview(scrollView)
-		setupScrollView()
-		
-		scrollView.addSubview(contentView)
-		setupContentView()
-		
-		view.layoutSubviews()
-		
-		contentView.addSubview(promoCollectionView)
-		setupPromoCollectionView()
-		
-		contentView.addSubview(promoBannersCollectionView)
-		setupPromoBannersCollectionView()
-		
-		contentView.addSubview(salesLabel)
-		salesLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
-		salesLabel.topAnchor.constraint(equalTo: promoBannersCollectionView.bottomAnchor, constant: 20).isActive = true
-		
-		contentView.addSubview(salesButton)
-		setupSalesButton()
-		
-		contentView.addSubview(salesCollectionView)
-		setupSalesCollectionView()
-		
-		contentView.addSubview(catalogLabel)
-		catalogLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
-		catalogLabel.topAnchor.constraint(equalTo: salesCollectionView.bottomAnchor, constant: 20).isActive = true
-		
-		contentView.addSubview(catalogCollectionView)
-		setupCatalogCollectionView()
-		
-		scrollView.layoutSubviews()
-	}
-	
-	private func setupCatalogCollectionView() {
-		catalogCollectionView.topAnchor.constraint(equalTo: catalogLabel.bottomAnchor, constant: 20).isActive = true
-		catalogCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
-		catalogCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
-		catalogCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
-	}
-	
-	private func setupSalesButton() {
-		salesButton.centerYAnchor.constraint(equalTo: salesLabel.centerYAnchor).isActive = true
-		salesButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
-		salesButton.leadingAnchor.constraint(greaterThanOrEqualTo: salesLabel.trailingAnchor, constant: 5).isActive = true
-		salesButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
-		salesButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
-	}
-	
-	private func setupContentView() {
-		contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
-		contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-		contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
-		contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
-		contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
-		contentView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor).isActive = true
-	}
-	
-	private func setupScrollView() {
-		scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-		scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-		scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-		scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-		scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-	}
-	
-	private func setupPromoCollectionView() {
-		promoCollectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20).isActive = true
-		promoCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
-		promoCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0).isActive = true
-		promoCollectionView.heightAnchor.constraint(equalToConstant: 80).isActive = true
-	}
-	
-	private func setupPromoBannersCollectionView() {
-		promoBannersCollectionView.topAnchor.constraint(equalTo: promoCollectionView.bottomAnchor, constant: 20).isActive = true
-		promoBannersCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
-		promoBannersCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0).isActive = true
-		promoBannersCollectionView.heightAnchor.constraint(equalToConstant: 115).isActive = true
-	}
-	
-	private func setupSalesCollectionView() {
-		salesCollectionView.topAnchor.constraint(equalTo: salesLabel.bottomAnchor, constant: 20).isActive = true
-		salesCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
-		salesCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0).isActive = true
-		salesCollectionView.heightAnchor.constraint(equalToConstant: 210).isActive = true
-	}
-
 	private func setupNavigationBar() {
 		let recognizer = UITapGestureRecognizer(target: self, action: #selector(addressButtonAction))
-		recognizer.delegate = self
 		addressView.addGestureRecognizer(recognizer)
 		addressView.configurate()
 		let adressBarButtonItem = UIBarButtonItem(customView: addressView)
@@ -263,10 +80,100 @@ class MainViewController: UIViewController, MainViewProtocol, UIGestureRecognize
 		
 		navigationItem.searchController = searchController
 	}
+
+	private func createLayout() -> UICollectionViewCompositionalLayout {
+		let layout = UICollectionViewCompositionalLayout { [weak self] (section, layoutEnvironment) -> NSCollectionLayoutSection? in
+			var result: NSCollectionLayoutSection?
+			switch section {
+			case 0:
+				result = self?.createPromoSectionLayout()
+			case 1:
+				result = self?.createBannersSectionLayout()
+			case 2:
+				result = self?.createSalesSectionLayout()
+			case 3:
+				result = self?.createCatalogSectionLayout()
+			default:
+				break
+			}
+			return result
+		}
+		return layout
+	}
+	
+	private func createPromoSectionLayout() -> NSCollectionLayoutSection {
+		let itemSize = NSCollectionLayoutSize(
+						widthDimension: .absolute(100),
+						heightDimension: .absolute(80))
+		let item = NSCollectionLayoutItem(layoutSize: itemSize)
+					item.contentInsets = .init(top: 2, leading: 2, bottom: 2, trailing: 2)
+
+		let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(100),
+												  heightDimension: .absolute(90))
+		let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+															 subitems: [item])
+		let section = NSCollectionLayoutSection(group: group)
+		section.contentInsets = .init(top: 10, leading: 20, bottom: 10, trailing: 20)
+		section.orthogonalScrollingBehavior = .continuous
+		return section
+	}
+	
+	private func createBannersSectionLayout() -> NSCollectionLayoutSection {
+		let itemSize = NSCollectionLayoutSize(
+						widthDimension: .absolute(290),
+						heightDimension: .absolute(115))
+		let item = NSCollectionLayoutItem(layoutSize: itemSize)
+					item.contentInsets = .init(top: 2, leading: 2, bottom: 2, trailing: 2)
+
+		let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(290),
+												  heightDimension: .absolute(120))
+		let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+															 subitems: [item])
+		let section = NSCollectionLayoutSection(group: group)
+		section.contentInsets = .init(top: 10, leading: 20, bottom: 10, trailing: 20)
+		section.orthogonalScrollingBehavior = .continuous
+		return section
+	}
+	
+	private func createSalesSectionLayout() -> NSCollectionLayoutSection {
+		let itemSize = NSCollectionLayoutSize(
+						widthDimension: .absolute(120),
+						heightDimension: .absolute(210))
+		let item = NSCollectionLayoutItem(layoutSize: itemSize)
+					item.contentInsets = .init(top: 2, leading: 2, bottom: 2, trailing: 2)
+
+		let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(120),
+												  heightDimension: .absolute(220))
+		let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+															 subitems: [item])
+		let section = NSCollectionLayoutSection(group: group)
+		section.contentInsets = .init(top: 10, leading: 20, bottom: 10, trailing: 20)
+		section.orthogonalScrollingBehavior = .continuous
+		let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(40)), elementKind: "Sales", alignment: .top)
+		section.boundarySupplementaryItems = [header]
+		return section
+	}
+	
+	private func createCatalogSectionLayout() -> NSCollectionLayoutSection {
+		let itemSize = NSCollectionLayoutSize(
+						widthDimension: .fractionalWidth(1.0),
+						heightDimension: .fractionalHeight(1.0))
+		let item = NSCollectionLayoutItem(layoutSize: itemSize)
+					item.contentInsets = .init(top: 5, leading: 5, bottom: 5, trailing: 5)
+
+		let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+												  heightDimension: .absolute(150))
+		let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+															 subitem: item, count: 3)
+		let section = NSCollectionLayoutSection(group: group)
+		section.contentInsets = .init(top: 10, leading: 15, bottom: 10, trailing: 15)
+		section.orthogonalScrollingBehavior = .none
+		let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(40)), elementKind: "Catalog", alignment: .top)
+		section.boundarySupplementaryItems = [header]
+		return section
+	}
 	
 	// MARK: - @objc private methods
-	
-	let transition = MenuTransition()
 	
 	@objc private func hamburgerMenuButtonAction() {
 		let vc = MenuViewController()
@@ -279,5 +186,85 @@ class MainViewController: UIViewController, MainViewProtocol, UIGestureRecognize
 	@objc private func addressButtonAction() {
 		let addressesViewController = AddressesViewController()
 		self.present(addressesViewController, animated: true, completion: nil)
+	}
+}
+
+extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+	
+	func numberOfSections(in collectionView: UICollectionView) -> Int {
+		return presenter?.getBlocksCount() ?? 0
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		switch section {
+		case 0:
+			return presenter?.getItemsCount(blockIndex: 0) ?? 0
+		case 1:
+			return presenter?.getItemsCount(blockIndex: 1) ?? 0
+		case 2:
+			return presenter?.getItemsCount(blockIndex: 2) ?? 0
+		case 3:
+			return presenter?.getItemsCount(blockIndex: 3) ?? 0
+		default:
+			return 0
+		}
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+		switch indexPath.section {
+		case 0:
+			guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PromoCollectionViewCell.identifirer, for: indexPath) as? PromoCollectionViewCell else {
+				return UICollectionViewCell()
+			}
+			guard let promo = presenter?.getPromoItem(index: indexPath.row) else {
+				return cell
+			}
+			cell.setData(image: promo.image, text: promo.name)
+			return cell
+		case 1:
+			guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BannerCollectionViewCell.identifirer, for: indexPath) as? BannerCollectionViewCell else {
+				return UICollectionViewCell()
+			}
+			guard let banner = presenter?.getBannerItem(index: indexPath.row) else {
+				return cell
+			}
+			cell.setImage(image: banner.image)
+			return cell
+		case 2:
+			guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SaleCollectionViewCell.identifirer, for: indexPath) as? SaleCollectionViewCell else {
+				return UICollectionViewCell()
+			}
+			guard let sale = presenter?.getSaleItem(index: indexPath.row) else {
+				return cell
+			}
+			cell.setData(name: sale.name, image: sale.image, price: sale.price, oldPrice: sale.oldPrice, sale: sale.sale, weight: sale.weight)
+			return cell
+		case 3:
+			guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CatalogCollectionViewCell.identifirer, for: indexPath) as? CatalogCollectionViewCell else {
+				return UICollectionViewCell()
+			}
+			guard let catalog = presenter?.getCatalogItem(index: indexPath.row) else {
+				return cell
+			}
+			cell.setData(image: catalog.image, text: catalog.name)
+			cell.backgroundColor = catalog.color
+			cell.layer.cornerRadius = 15
+			return cell
+		default:
+		   return UICollectionViewCell()
+		}
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+		switch indexPath.section {
+		case 2:
+			let view = collectionView.dequeueReusableSupplementaryView(ofKind: "Sales", withReuseIdentifier: SalesHeaderView.identifirer, for: indexPath) as? SalesHeaderView
+			return view ?? UICollectionReusableView()
+		case 3:
+			let view = collectionView.dequeueReusableSupplementaryView(ofKind: "Catalog", withReuseIdentifier: CatalogHeaderView.identifirer, for: indexPath) as? CatalogHeaderView
+			return view ?? UICollectionReusableView()
+		default:
+			return UICollectionReusableView()
+		}
 	}
 }

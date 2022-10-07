@@ -19,8 +19,8 @@ final class AddressesPresenter: AddressesPresenterProtocol {
 		networkingService = service
 	}
 	
-	func getAddress(for index: Int) -> String {
-		addresses[index].value
+	func getAddress(for index: Int) -> Address {
+ 		addresses[index]
 	}
 	
 	func getAddressesCount() -> Int {
