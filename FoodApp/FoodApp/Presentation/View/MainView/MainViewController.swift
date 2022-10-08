@@ -6,10 +6,14 @@ class MainViewController: UIViewController, MainViewProtocol {
 		
 	private var presenter: MainPresenterProtocol?
 	private let transition = MenuTransition()
+	private let searchController = UISearchController()
 	
-	private var favoritesButton: UIBarButtonItem = {
-		let button = UIBarButtonItem(image: UIImage(systemName: "heart.fill"), style: .plain, target: self, action: nil)
+	private var favoritesButton: UIButton = {
+		let button = UIButton()
 		button.tintColor = .gray
+		button.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+		button.translatesAutoresizingMaskIntoConstraints = false
+		button.backgroundColor = Constants.secondBackgroundColor
 		return button
 	}()
 	
@@ -66,19 +70,29 @@ class MainViewController: UIViewController, MainViewProtocol {
 		addressView.addGestureRecognizer(recognizer)
 		addressView.configurate()
 		let adressBarButtonItem = UIBarButtonItem(customView: addressView)
-		
 		navigationController?.navigationBar.backgroundColor = Constants.backgroundColor
-		
 		navigationItem.leftBarButtonItems = [hamburgerMenuButton, adressBarButtonItem]
-		navigationItem.rightBarButtonItem = favoritesButton
-		
-		let searchController = UISearchController()
+		searchController.delegate = self
 		searchController.searchBar.showsBookmarkButton = true
 		searchController.searchBar.setImage(UIImage(systemName: "magnifyingglass"), for: .bookmark, state: .normal)
+		setupSearchBar()
 		searchController.searchBar.searchTextField.leftView = nil
 		searchController.searchBar.searchTextField.placeholder = "Поиск товаров"
-		
 		navigationItem.searchController = searchController
+	}
+	
+	private func setupSearchBar() {
+		searchController.searchBar.searchTextField.translatesAutoresizingMaskIntoConstraints = false
+		searchController.searchBar.searchTextField.centerYAnchor.constraint(equalTo: searchController.searchBar.centerYAnchor, constant: 0).isActive = true
+		searchController.searchBar.searchTextField.leadingAnchor.constraint(equalTo: searchController.searchBar.leadingAnchor, constant: 20).isActive = true
+		searchController.searchBar.searchTextField.widthAnchor.constraint(equalTo: searchController.searchBar.widthAnchor, multiplier: 3/4).isActive = true
+		
+		searchController.searchBar.addSubview(favoritesButton)
+		favoritesButton.centerYAnchor.constraint(equalTo: searchController.searchBar.centerYAnchor).isActive = true
+		favoritesButton.trailingAnchor.constraint(equalTo: searchController.searchBar.trailingAnchor, constant: -25).isActive = true
+		favoritesButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+		favoritesButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+		favoritesButton.layer.cornerRadius = 15
 	}
 
 	private func createLayout() -> UICollectionViewCompositionalLayout {
@@ -102,52 +116,37 @@ class MainViewController: UIViewController, MainViewProtocol {
 	}
 	
 	private func createPromoSectionLayout() -> NSCollectionLayoutSection {
-		let itemSize = NSCollectionLayoutSize(
-						widthDimension: .absolute(100),
-						heightDimension: .absolute(80))
+		let itemSize = NSCollectionLayoutSize( widthDimension: .absolute(100), heightDimension: .absolute(90))
 		let item = NSCollectionLayoutItem(layoutSize: itemSize)
-					item.contentInsets = .init(top: 2, leading: 2, bottom: 2, trailing: 2)
-
-		let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(100),
-												  heightDimension: .absolute(90))
-		let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-															 subitems: [item])
+		item.contentInsets = .init(top: 2, leading: 5, bottom: 2, trailing: 5)
+		let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(100), heightDimension: .absolute(90))
+		let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 		let section = NSCollectionLayoutSection(group: group)
-		section.contentInsets = .init(top: 10, leading: 20, bottom: 10, trailing: 20)
+		section.contentInsets = .init(top: 10, leading: 15, bottom: 10, trailing: 15)
 		section.orthogonalScrollingBehavior = .continuous
 		return section
 	}
 	
 	private func createBannersSectionLayout() -> NSCollectionLayoutSection {
-		let itemSize = NSCollectionLayoutSize(
-						widthDimension: .absolute(290),
-						heightDimension: .absolute(115))
+		let itemSize = NSCollectionLayoutSize( widthDimension: .absolute(290), heightDimension: .absolute(115))
 		let item = NSCollectionLayoutItem(layoutSize: itemSize)
-					item.contentInsets = .init(top: 2, leading: 2, bottom: 2, trailing: 2)
-
-		let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(290),
-												  heightDimension: .absolute(120))
-		let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-															 subitems: [item])
+		item.contentInsets = .init(top: 2, leading: 5, bottom: 5, trailing: 2)
+		let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(290), heightDimension: .absolute(120))
+		let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 		let section = NSCollectionLayoutSection(group: group)
-		section.contentInsets = .init(top: 10, leading: 20, bottom: 10, trailing: 20)
+		section.contentInsets = .init(top: 10, leading: 15, bottom: 10, trailing: 15)
 		section.orthogonalScrollingBehavior = .continuous
 		return section
 	}
 	
 	private func createSalesSectionLayout() -> NSCollectionLayoutSection {
-		let itemSize = NSCollectionLayoutSize(
-						widthDimension: .absolute(120),
-						heightDimension: .absolute(210))
+		let itemSize = NSCollectionLayoutSize( widthDimension: .absolute(120), heightDimension: .absolute(210))
 		let item = NSCollectionLayoutItem(layoutSize: itemSize)
-					item.contentInsets = .init(top: 2, leading: 2, bottom: 2, trailing: 2)
-
-		let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(120),
-												  heightDimension: .absolute(220))
-		let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-															 subitems: [item])
+		item.contentInsets = .init(top: 2, leading: 5, bottom: 2, trailing: 5)
+		let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(120), heightDimension: .absolute(220))
+		let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 		let section = NSCollectionLayoutSection(group: group)
-		section.contentInsets = .init(top: 10, leading: 20, bottom: 10, trailing: 20)
+		section.contentInsets = .init(top: 10, leading: 15, bottom: 10, trailing: 15)
 		section.orthogonalScrollingBehavior = .continuous
 		let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(40)), elementKind: "Sales", alignment: .top)
 		section.boundarySupplementaryItems = [header]
@@ -155,16 +154,11 @@ class MainViewController: UIViewController, MainViewProtocol {
 	}
 	
 	private func createCatalogSectionLayout() -> NSCollectionLayoutSection {
-		let itemSize = NSCollectionLayoutSize(
-						widthDimension: .fractionalWidth(1.0),
-						heightDimension: .fractionalHeight(1.0))
+		let itemSize = NSCollectionLayoutSize( widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
 		let item = NSCollectionLayoutItem(layoutSize: itemSize)
-					item.contentInsets = .init(top: 5, leading: 5, bottom: 5, trailing: 5)
-
-		let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-												  heightDimension: .absolute(150))
-		let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-															 subitem: item, count: 3)
+		item.contentInsets = .init(top: 5, leading: 5, bottom: 5, trailing: 5)
+		let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(150))
+		let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 3)
 		let section = NSCollectionLayoutSection(group: group)
 		section.contentInsets = .init(top: 10, leading: 15, bottom: 10, trailing: 15)
 		section.orthogonalScrollingBehavior = .none
@@ -179,7 +173,6 @@ class MainViewController: UIViewController, MainViewProtocol {
 		let vc = MenuViewController()
 		vc.modalPresentationStyle = .custom
 		vc.transitioningDelegate = transition
-		
 		self.present(vc, animated: true, completion: nil)
 	}
 	
@@ -266,5 +259,16 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
 		default:
 			return UICollectionReusableView()
 		}
+	}
+}
+
+extension MainViewController: UISearchControllerDelegate {
+	
+	func didPresentSearchController(_ searchController: UISearchController) {
+		favoritesButton.isHidden = true
+	}
+	
+	func didDismissSearchController(_ searchController: UISearchController) {
+		favoritesButton.isHidden = false
 	}
 }

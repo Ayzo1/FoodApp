@@ -10,7 +10,7 @@ class MenuViewController: UIViewController, UIGestureRecognizerDelegate {
 	private lazy var avatarImageView: UIImageView = {
 		let imageView = UIImageView()
 		imageView.translatesAutoresizingMaskIntoConstraints = false
-		imageView.image = UIImage(systemName: "person")
+		imageView.image = UIImage(named: "avatar")
 		imageView.tintColor = .gray
 		return imageView
 	}()
@@ -160,7 +160,7 @@ class MenuViewController: UIViewController, UIGestureRecognizerDelegate {
 		view.layoutSubviews()
 		
 		let bottomLine = CALayer()
-		bottomLine.frame = CGRect(x: 0.0, y: headerView.frame.height - 1, width: view.frame.width * 4 / 5, height: 1.0)
+		bottomLine.frame = CGRect(x: 0.0, y: headerView.frame.height - 1, width: view.frame.width * 7 / 8, height: 1.0)
 		bottomLine.backgroundColor = UIColor.lightGray.cgColor
 		headerView.layer.addSublayer(bottomLine)
     }

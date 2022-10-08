@@ -68,8 +68,8 @@ final class MockData {
  ]
 
 	static let catalog: [Catalog] = [
-		Catalog(image: UIImage(named: "catalog0")!, name: "Пицца", color: #colorLiteral(red: 0.9819388986, green: 0.881049335, blue: 0.6764041185, alpha: 1)),
 		Catalog(image: UIImage(named: "catalog1")!, name: "Наборы", color: #colorLiteral(red: 0.9594486356, green: 0.7542556524, blue: 0.7112396359, alpha: 1)),
+		Catalog(image: UIImage(named: "catalog0")!, name: "Пицца", color: #colorLiteral(red: 0.9819388986, green: 0.881049335, blue: 0.6764041185, alpha: 1)),
 		Catalog(image: UIImage(named: "catalog2")!, name: "Паста", color: #colorLiteral(red: 0.7307267189, green: 0.7209545374, blue: 0.5716820359, alpha: 1)),
 		Catalog(image: UIImage(named: "catalog3")!, name: "Ризотто", color: #colorLiteral(red: 0.7683117986, green: 0.8264796138, blue: 0.807038188, alpha: 1)),
 		Catalog(image: UIImage(named: "catalog4")!, name: "Салаты", color: #colorLiteral(red: 0.7239583135, green: 0.7672206759, blue: 0.7844961882, alpha: 1)),
