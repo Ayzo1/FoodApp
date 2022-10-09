@@ -82,17 +82,17 @@ class MainViewController: UIViewController, MainViewProtocol {
 	}
 	
 	private func setupSearchBar() {
+		searchController.searchBar.addSubview(favoritesButton)
+		favoritesButton.centerYAnchor.constraint(equalTo: searchController.searchBar.centerYAnchor).isActive = true
+		favoritesButton.trailingAnchor.constraint(equalTo: searchController.searchBar.trailingAnchor, constant: -20).isActive = true
+		favoritesButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+		favoritesButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+		favoritesButton.layer.cornerRadius = 15
+		
 		searchController.searchBar.searchTextField.translatesAutoresizingMaskIntoConstraints = false
 		searchController.searchBar.searchTextField.centerYAnchor.constraint(equalTo: searchController.searchBar.centerYAnchor, constant: 0).isActive = true
 		searchController.searchBar.searchTextField.leadingAnchor.constraint(equalTo: searchController.searchBar.leadingAnchor, constant: 20).isActive = true
 		searchController.searchBar.searchTextField.widthAnchor.constraint(equalTo: searchController.searchBar.widthAnchor, multiplier: 3/4).isActive = true
-		
-		searchController.searchBar.addSubview(favoritesButton)
-		favoritesButton.centerYAnchor.constraint(equalTo: searchController.searchBar.centerYAnchor).isActive = true
-		favoritesButton.trailingAnchor.constraint(equalTo: searchController.searchBar.trailingAnchor, constant: -25).isActive = true
-		favoritesButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
-		favoritesButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-		favoritesButton.layer.cornerRadius = 15
 	}
 
 	private func createLayout() -> UICollectionViewCompositionalLayout {
@@ -140,10 +140,10 @@ class MainViewController: UIViewController, MainViewProtocol {
 	}
 	
 	private func createSalesSectionLayout() -> NSCollectionLayoutSection {
-		let itemSize = NSCollectionLayoutSize( widthDimension: .absolute(120), heightDimension: .absolute(210))
+		let itemSize = NSCollectionLayoutSize( widthDimension: .absolute(130), heightDimension: .absolute(210))
 		let item = NSCollectionLayoutItem(layoutSize: itemSize)
 		item.contentInsets = .init(top: 2, leading: 5, bottom: 2, trailing: 5)
-		let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(120), heightDimension: .absolute(220))
+		let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(130), heightDimension: .absolute(220))
 		let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 		let section = NSCollectionLayoutSection(group: group)
 		section.contentInsets = .init(top: 10, leading: 15, bottom: 10, trailing: 15)

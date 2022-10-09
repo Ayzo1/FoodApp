@@ -19,7 +19,7 @@ final class SalesHeaderView: UICollectionReusableView {
 		button.setImage(UIImage(named: "vector"), for: .normal)
 		button.translatesAutoresizingMaskIntoConstraints = false
 		button.semanticContentAttribute = .forceRightToLeft
-		button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
+		button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 15)
 		button.backgroundColor = Constants.secondBackgroundColor
 		button.tintColor = Constants.textColor
 		button.setTitleColor(Constants.textColor, for: .normal)
