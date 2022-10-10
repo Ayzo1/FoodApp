@@ -38,6 +38,7 @@ class MainViewController: UIViewController, MainViewProtocol {
 		collectionView.register(SalesHeaderView.self, forSupplementaryViewOfKind: "Sales", withReuseIdentifier: SalesHeaderView.identifirer)
 		collectionView.register(CatalogHeaderView.self, forSupplementaryViewOfKind: "Catalog", withReuseIdentifier: CatalogHeaderView.identifirer)
 		collectionView.backgroundColor = Constants.backgroundColor
+		collectionView.showsVerticalScrollIndicator = false
 		return collectionView
 	}()
 	
